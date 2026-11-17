@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unregelmäßige Verben – Schreibtrainer</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#17243a;background:#f3f6fa}*{box-sizing:border-box}body{margin:0}.wrap{max-width:850px;margin:auto;padding:24px 16px 56px}h1{font-size:clamp(1.55rem,4vw,2.25rem);margin:6px 0 4px}.sub{color:#53637b;margin:0 0 24px}.panel{background:white;border:1px solid #dfe6ef;border-radius:16px;padding:20px;box-shadow:0 7px 22px #1f3b5a0a;margin-bottom:16px}.settings{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.settings label{font-size:.9rem;color:#33445c;display:block}.settings select{margin-top:5px;min-width:160px;padding:10px;border:1px solid #bac7d8;border-radius:9px;background:white;font-size:1rem}.checkrow{display:flex;align-items:center;gap:8px;padding:10px 0;color:#243850}.checkrow input{width:18px;height:18px}.stats{display:flex;gap:12px;flex-wrap:wrap}.stat{flex:1;min-width:110px;background:#f3f7ff;border-radius:10px;padding:11px 14px}.stat b{display:block;font-size:1.45rem}.stat span{color:#50607a;font-size:.8rem}.question{border-radius:12px;background:#eaf1fc;padding:18px;text-align:center;margin:16px 0 22px}.question .kicker{font-size:.85rem;color:#526783}.question strong{display:block;margin-top:9px;font-size:clamp(1.8rem,5vw,2.7rem);overflow-wrap:anywhere}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:6px}.field input{font:inherit;width:100%;border:1.5px solid #b6c4d8;border-radius:9px;padding:12px;background:white;outline-color:#3467c5}.field input.correct{border-color:#1e925d;background:#effaf4}.field input.wrong{border-color:#c84949;background:#fff3f3}.feedback{font-size:.84rem;margin-top:5px;min-height:18px;color:#9b3434;overflow-wrap:anywhere}.feedback.good{color:#14784a}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}button{border:0;border-radius:9px;padding:12px 17px;font:inherit;font-weight:650;cursor:pointer;background:#235cba;color:white}button.secondary{background:#e8eef8;color:#244577}button:disabled{opacity:.45;cursor:not-allowed}.foot{color:#6b788c;font-size:.82rem;margin-top:16px}.message{font-weight:600;margin-top:13px;min-height:22px}.hidden{display:none!important}@media(max-width:550px){.fields{grid-template-columns:1fr}.panel{padding:16px}.settings select{width:100%}.settings>div{flex:1;min-width:150px}}
+</style>
+</head>
+<body><main class="wrap"><h1>Unregelmäßige Verben</h1><p class="sub">Schreibtrainer · Zufällige Formen · Sofortige Korrektur</p>
+<section class="panel"><div class="settings"><div><label for="group">Wortgruppe</label><select id="group"><option value="all">Alle Verben</option><option value="hilfs">Hilfsverben (S. 320)</option><option value="modal">Modalverben (S. 320)</option><option value="stark321">Starke Verben (S. 321)</option><option value="stark322">Starke Verben (S. 322)</option><option value="stark323">Starke Verben (S. 323)</option><option value="stark324">Starke Verben (S. 324)</option><option value="stark325">Starke Verben (S. 325)</option><option value="stark326">Starke Verben (S. 326)</option><option value="stark327">Starke Verben (S. 327)</option><option value="stark328">Starke Verben (S. 328)</option></select></div><div><label for="mode">Übungsmodus</label><select id="mode"><option value="random">Zufällige Verben</option><option value="errors">Nur Fehler wiederholen</option></select></div><label class="checkrow"><input id="present" type="checkbox">Sonderformen im Präsens abfragen</label></div></section>
+<section class="panel"><div class="stats"><div class="stat"><b id="total">0</b><span>Geprüfte Aufgaben</span></div><div class="stat"><b id="right">0</b><span>Vollständig richtig</span></div><div class="stat"><b id="errorcount">0</b><span>Verben in der Fehlerliste</span></div></div><div class="question"><span class="kicker" id="given-label">Gegebene Form</span><strong id="given-value">…</strong></div><form id="quiz" autocomplete="off"><div class="fields" id="fields"></div><div class="message" id="message" aria-live="polite"></div><div class="actions"><button type="submit" id="check">Überprüfen</button><button type="button" class="secondary" id="reveal">Lösung zeigen</button><button type="button" class="secondary" id="next">Nächstes Verb →</button></div></form><p class="foot">Tipp: Drücke Enter zum Überprüfen. Nach der Korrektur führt Enter zum nächsten Verb. Groß-/Kleinschreibung wird nicht bewertet. Die Fehlerliste bleibt auf diesem Gerät gespeichert.</p></section>
+<section class="panel"><strong>So funktioniert's</strong><p>Du siehst zufällig den Infinitiv, das Präteritum oder das Partizip II. Trage die übrigen Formen und das Hilfsverb ein. Wähle danach „Überprüfen“. Falsche Verben kannst du gezielt wiederholen. Bei Verben mit zwei Hilfsverben sind beide zulässig.</p><button class="secondary" id="reset">Fehlerliste und Statistik löschen</button></section>
+</main><script>
+// Die Formen sind aus den fotografierten Lehrbuchseiten 320–328 übertragen.
+// Format: Infinitiv | Präteritum | Partizip II | haben/sein | Präsens-Sonderform
+const raw={
+ hilfs:`haben|hatte|gehabt|haben|du hast; er hat
+sein|war|gewesen|sein|ich bin; du bist; er ist; wir sind; ihr seid; sie sind
+werden|wurde|geworden|sein|du wirst; er wird`,
+ modal:`dürfen|durfte|gedurft|haben|ich darf; du darfst; er darf
+müssen|musste|gemusst|haben|ich muss; du musst; er muss
+mögen|mochte|gemocht|haben|ich mag; du magst; er mag
+können|konnte|gekonnt|haben|ich kann; du kannst; er kann
+sollen|sollte|gesollt|haben|ich soll; du sollst; er soll
+wollen|wollte|gewollt|haben|ich will; du willst; er will`,
+ stark321:`backen|backte (buk)|gebacken|haben|du backst (bäckst); er backt (bäckt)
+befehlen|befahl|befohlen|haben|du befiehlst; er befiehlt
+beginnen|begann|begonnen|haben|
+beißen|biss|gebissen|haben|
+bergen|barg|geborgen|haben|du birgst; er birgt
+bersten|barst|geborsten|sein|du birst; er birst
+betrügen|betrog|betrogen|haben|
+biegen|bog|gebogen|haben/sein|
+bieten|bot|geboten|haben|
+binden|band|gebunden|haben|
+bitten|bat|gebeten|haben|
+blasen|blies|geblasen|haben|du bläst; er bläst
+bleiben|blieb|geblieben|sein|
+braten|briet|gebraten|haben|du brätst; er brät
+brechen|brach|gebrochen|haben/sein|du brichst; er bricht
+brennen|brannte|gebrannt|haben|
+bringen|brachte|gebracht|haben|
+denken|dachte|gedacht|haben|
+dreschen|drosch|gedroschen|haben|du drischst; er drischt
+dringen|drang|gedrungen|sein|`,
+ stark322:`empfangen|empfing|empfangen|haben|du empfängst; er empfängt
+empfinden|empfand|empfunden|haben|
+erklimmen|erklomm|erklommen|haben|
+erlöschen|erlosch|erloschen|sein|er erlischt
+erschallen|erscholl|erschollen|sein|
+erwägen|erwog|erwogen|haben|
+essen|aß|gegessen|haben|du isst; er isst
+fahren|fuhr|gefahren|haben/sein|du fährst; er fährt
+fallen|fiel|gefallen|sein|du fällst; er fällt
+fangen|fing|gefangen|haben|du fängst; er fängt
+fechten|focht|gefochten|haben|du fichtst; er ficht
+finden|fand|gefunden|haben|
+flechten|flocht|geflochten|haben|du flichtst; er flicht
+fliegen|flog|geflogen|haben/sein|
+fliehen|floh|geflohen|sein|
+fließen|floss|geflossen|sein|
+fressen|fraß|gefressen|haben|du frisst; er frisst
+frieren|fror|gefroren|haben|
+gebären|gebar|geboren|haben|du gebärst; sie gebärt
+geben|gab|gegeben|haben|du gibst; er gibt
+gedeihen|gedieh|gediehen|sein|`,
+ stark323:`gehen|ging|gegangen|sein|
+gelingen|gelang|gelungen|sein|
+gelten|galt|gegolten|haben|du giltst; er gilt
+genesen|genas|genesen|sein|
+genießen|genoss|genossen|haben|
+geraten|geriet|geraten|sein|du gerätst; er gerät
+geschehen|geschah|geschehen|sein|es geschieht
+gewinnen|gewann|gewonnen|haben|
+gießen|goss|gegossen|haben|
+gleichen|glich|geglichen|haben|
+gleiten|glitt|geglitten|sein|
+glimmen|glimmte (glomm)|geglommen|haben|
+graben|grub|gegraben|haben|du gräbst; er gräbt
+greifen|griff|gegriffen|haben|
+halten|hielt|gehalten|haben|du hältst; er hält
+hauen|haute (hieb)|gehauen|haben|
+heben|hob|gehoben|haben|
+heißen|hieß|geheißen|haben|
+helfen|half|geholfen|haben|du hilfst; er hilft
+kennen|kannte|gekannt|haben|
+klingen|klang|geklungen|haben|du klingst; er klingt
+kneifen|kniff|gekniffen|haben|
+kommen|kam|gekommen|sein|`,
+ stark324:`kriechen|kroch|gekrochen|sein|
+laden|lud|geladen|haben|du lädst; er lädt
+lassen|ließ|gelassen|haben|du lässt; er lässt
+laufen|lief|gelaufen|sein|du läufst; er läuft
+leiden|litt|gelitten|haben|
+leihen|lieh|geliehen|haben|
+lesen|las|gelesen|haben|du liest; er liest
+liegen|lag|gelegen|haben|
+lügen|log|gelogen|haben|
+mahlen|mahlte|gemahlen|haben|
+meiden|mied|gemieden|haben|
+melken|melkte (molk)|gemolken|haben|du melkst (milkst); er melkt (milkt)
+messen|maß|gemessen|haben|du misst; er misst
+nehmen|nahm|genommen|haben|du nimmst; er nimmt
+nennen|nannte|genannt|haben|
+pfeifen|pfiff|gepfiffen|haben|
+preisen|pries|gepriesen|haben|
+quellen|quoll|gequollen|sein|du quillst; er quillt
+raten|riet|geraten|haben|du rätst; er rät
+reiben|rieb|gerieben|haben|
+reißen|riss|gerissen|haben/sein|`,
+ stark325:`reiten|ritt|geritten|haben/sein|
+rennen|rannte|gerannt|sein|
+riechen|roch|gerochen|haben|
+ringen|rang|gerungen|haben|
+rinnen|rann|geronnen|sein|
+rufen|rief|gerufen|haben|
+salzen|salzte|gesalzen|haben|
+saufen|soff|gesoffen|haben|du säufst; er säuft
+saugen|saugte (sog)|gesogen/gesaugt|haben|
+scheiden|schied|geschieden|haben/sein|
+scheinen|schien|geschienen|haben|
+schelten|schalt|gescholten|haben|du schiltst; er schilt
+schieben|schob|geschoben|haben|
+schießen|schoss|geschossen|haben/sein|
+schinden|schindete|geschunden|haben|
+schlafen|schlief|geschlafen|haben|du schläfst; er schläft
+schlagen|schlug|geschlagen|haben|du schlägst; er schlägt
+schleichen|schlich|geschlichen|sein|
+schließen|schloss|geschlossen|haben|
+schlingen|schlang|geschlungen|haben|
+schmeißen|schmiss|geschmissen|haben|
+schmelzen|schmolz|geschmolzen|haben/sein|du schmilzt; er schmilzt
+schneiden|schnitt|geschnitten|haben|`,
+ stark326:`schreiben|schrieb|geschrieben|haben|
+schreiten|schritt|geschritten|sein|
+schweigen|schwieg|geschwiegen|haben|
+schwimmen|schwamm|geschwommen|haben/sein|
+schwinden|schwand|geschwunden|sein|
+schwingen|schwang|geschwungen|haben|
+schwören|schwor|geschworen|haben|
+sehen|sah|gesehen|haben|du siehst; er sieht
+singen|sang|gesungen|haben|
+sinken|sank|gesunken|sein|
+sinnen|sann|gesonnen|haben|
+sitzen|saß|gesessen|haben|
+spalten|spaltete|gespalten|haben|
+speien|spie|gespie(e)n|haben|
+spinnen|spann|gesponnen|haben|
+sprechen|sprach|gesprochen|haben|du sprichst; er spricht
+sprießen|spross|gesprossen|sein|
+springen|sprang|gesprungen|sein|
+stechen|stach|gestochen|haben|du stichst; er sticht
+stehen|stand|gestanden|haben|
+stehlen|stahl|gestohlen|haben|du stiehlst; er stiehlt
+steigen|stieg|gestiegen|sein|
+sterben|starb|gestorben|sein|du stirbst; er stirbt
+stinken|stank|gestunken|haben|`,
+ stark327:`stoßen|stieß|gestoßen|haben/sein|du stößt; er stößt
+streichen|strich|gestrichen|haben|
+streiten|stritt|gestritten|haben|
+tragen|trug|getragen|haben|du trägst; er trägt
+treffen|traf|getroffen|haben|du triffst; er trifft
+treiben|trieb|getrieben|haben/sein|
+treten|trat|getreten|haben/sein|du trittst; er tritt
+trinken|trank|getrunken|haben|
+trügen|trog|getrogen|haben|
+tun|tat|getan|haben|
+verbleichen|verblich|verblichen|sein|
+verderben|verdarb|verdorben|haben/sein|du verdirbst; er verdirbt
+verdrießen|verdross|verdrossen|haben|
+vergessen|vergaß|vergessen|haben|du vergisst; er vergisst
+verlieren|verlor|verloren|haben|
+verschwinden|verschwand|verschwunden|sein|
+verzeihen|verzieh|verziehen|haben|
+waschen|wusch|gewaschen|haben|du wäschst; er wäscht
+weisen|wies|gewiesen|haben|
+werben|warb|geworben|haben|du wirbst; er wirbt
+werfen|warf|geworfen|haben|du wirfst; er wirft`,
+ stark328:`winden|wand|gewunden|haben|
+wissen|wusste|gewusst|haben|ich weiß; du weißt; er weiß
+wringen|wrang|gewrungen|haben|
+ziehen|zog|gezogen|haben/sein|
+zwingen|zwang|gezwungen|haben|`
+};
+const entries=Object.entries(raw).flatMap(([group,data])=>data.trim().split('\n').map(line=>{const [inf,pre,part,aux,present]=line.split('|');return {group,inf,pre,part,aux,present:present||''}}));
+const key='unregelmaessige_verben_320_328_v2';
+let stats;try{stats=JSON.parse(localStorage.getItem(key))||{total:0,right:0,errors:[]}}catch{stats={total:0,right:0,errors:[]}}
+const $=id=>document.getElementById(id);let current=null,corrected=false,lastInf='';
+function store(){localStorage.setItem(key,JSON.stringify(stats));renderStats()}
+function renderStats(){$('total').textContent=stats.total;$('right').textContent=stats.right;$('errorcount').textContent=stats.errors.length}
+function norm(s){return(s||'').toLocaleLowerCase('de').trim().replace(/\s+/g,' ').replace(/[.,;]+$/,'')}
+function expandVariant(text){
+  const t=(text||'').trim();
+  if(!t) return [];
+  if(t.includes('/')) return t.split('/').flatMap(part=>expandVariant(part));
+  const trailing=t.match(/^(.+?)\s*\(([^()]+)\)$/);
+  if(trailing){
+    const base=trailing[1].trim();
+    const alt=trailing[2].trim();
+    const out=[base];
+    if(alt.includes(' ')) out.push(alt);
+    else if(base.includes(' ')) out.push(base.replace(/[^\s]+$/,alt));
+    else out.push(alt);
+    out.push(t);
+    return [...new Set(out.map(norm))];
+  }
+  const inline=t.match(/^(.*)\(([^()]+)\)(.*)$/);
+  if(inline){
+    const a=(inline[1]+inline[3]).trim();
+    const b=(inline[1]+inline[2]+inline[3]).trim();
+    return [...new Set([a,b,t].map(norm))];
+  }
+  return [norm(t)];
+}
+function optionsFor(expected,field){
+  if(field==='present') return [norm(expected)];
+  return [...new Set(expandVariant(expected))];
+}
+function correct(value,expected,field){
+  if(!value.trim())return false;
+  const v=norm(value);
+  if(field==='present'){
+    if(v===norm(expected)) return true;
+    const expectedParts=expected.split(';').map(s=>s.trim()).filter(Boolean);
+    const userParts=value.split(';').map(s=>norm(s)).filter(Boolean);
+    if(userParts.length!==expectedParts.length) return false;
+    return userParts.every((part,i)=>expandVariant(expectedParts[i]).includes(part));
+  }
+  return optionsFor(expected,field).includes(v)
+}
+const titles={inf:'Infinitiv',pre:'Präteritum (3. Person Singular)',part:'Partizip II',aux:'Hilfsverb (haben / sein)',present:'Sonderformen im Präsens'};
+function next(){const group=$('group').value,mode=$('mode').value;let pool=entries.filter(e=>(group==='all'||e.group===group)&&(mode!=='errors'||stats.errors.includes(e.inf)));if(!pool.length){$('given-value').textContent=mode==='errors'?'Keine Fehler in dieser Gruppe':'Keine Verben';$('given-label').textContent='';$('fields').innerHTML='';$('message').textContent=mode==='errors'?'Prima! Wähle „Zufällige Verben“, um weiterzuüben.':'';current=null;return}
+ let choices=pool.filter(e=>e.inf!==lastInf);if(!choices.length)choices=pool;current=choices[Math.floor(Math.random()*choices.length)];lastInf=current.inf;const src=['inf','pre','part'][Math.floor(Math.random()*3)];current.src=src;corrected=false;$('given-label').textContent=titles[src];$('given-value').textContent=current[src];$('message').textContent='';$('check').disabled=false;$('reveal').disabled=false;$('fields').innerHTML='';const fields=['inf','pre','part','aux'];if($('present').checked&&current.present)fields.push('present');for(const field of fields){if(field===src)continue;const el=document.createElement('div');el.className='field';const lbl=document.createElement('label');lbl.htmlFor='answer-'+field;lbl.textContent=titles[field];const inp=document.createElement('input');inp.id='answer-'+field;inp.dataset.field=field;inp.type='text';inp.spellcheck=false;inp.autocomplete='off';inp.autocapitalize='off';const fb=document.createElement('div');fb.className='feedback';el.append(lbl,inp,fb);$('fields').append(el)}$('fields').querySelector('input')?.focus()}
+function evaluate(reveal=false){if(!current||corrected)return;let all=true;for(const inp of $('fields').querySelectorAll('input')){const f=inp.dataset.field,ans=current[f],ok=correct(inp.value,ans,f);if(!ok)all=false;inp.classList.add(ok?'correct':'wrong');inp.readOnly=true;const fb=inp.nextElementSibling;fb.textContent=ok?'✓ Richtig':`Lösung: ${ans}`;fb.className='feedback'+(ok?' good':'')}
+ corrected=true;$('check').disabled=true;$('reveal').disabled=true;if(!reveal){stats.total++;if(all)stats.right++}if(!all||reveal){if(!stats.errors.includes(current.inf))stats.errors.push(current.inf)}else{stats.errors=stats.errors.filter(x=>x!==current.inf)}store();$('message').textContent=reveal?'Lösung angezeigt – später noch einmal üben.':all?'Alles richtig! Sehr gut!':'Nicht ganz richtig – das Verb kommt in die Fehlerliste.';$('next').focus()}
+$('quiz').addEventListener('submit',e=>{e.preventDefault();if(corrected)next();else evaluate(false)});$('reveal').onclick=()=>evaluate(true);$('next').onclick=next;$('group').onchange=next;$('mode').onchange=next;$('present').onchange=next;$('reset').onclick=()=>{if(confirm('Fehlerliste und Statistik wirklich löschen?')){stats={total:0,right:0,errors:[]};store();next()}};renderStats();next();
+</script></body></html>
