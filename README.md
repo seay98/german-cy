@@ -4,7 +4,7 @@ A simple browser-based trainer for practicing irregular German verbs. Built with
 
 ## Getting Started
 
-Open [v3.html](v3.html) in your browser. No installation, build step, or server is required.
+Open [index.html](index.html) in your browser. It automatically redirects to the latest trainer, [v3.html](v3.html). No installation, build step, or server is required.
 
 ## Features
 
@@ -17,6 +17,7 @@ Open [v3.html](v3.html) in your browser. No installation, build step, or server 
 
 ## Files
 
+- `index.html`: Entry page that redirects to the latest version, with a **Start** link as a fallback.
 - `v1.html`: Original version covering textbook pages 320–323.
 - `v2.html`: Expanded version covering textbook pages 320–328.
 - `v3.html`: Latest version, adding daily goals, stamps, streaks, and achievements to the same verb collection.
