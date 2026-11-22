@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conjugaison – 46 verbes · Dictée complète</title>
+<style>
+:root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#f5f7fb;color:#172438}*{box-sizing:border-box}body{margin:0}.wrap{max-width:850px;margin:0 auto;padding:22px 14px 70px}h1{font-size:clamp(1.65rem,5vw,2.4rem);margin:0 0 4px}.sub{color:#5d6d82;margin:0 0 18px}.panel{background:#fff;border-radius:16px;border:1px solid #e0e6ee;padding:18px;margin-bottom:14px;box-shadow:0 6px 17px #23405b09}.settings{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.control{flex:1;min-width:150px}.control label{font-size:.88rem;font-weight:600;display:block;margin-bottom:5px}select,input{font:inherit;border:1.5px solid #becbda;border-radius:10px;background:white;padding:11px 12px;width:100%;color:#172438}input:focus{outline:2px solid #4d7cda}.progress{height:12px;background:#e7edf5;border-radius:100px;overflow:hidden}.bar{height:100%;width:0;background:#0b9463;transition:width .3s}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.stat{flex:1;min-width:100px;background:#f0f5fa;border-radius:9px;padding:10px}.stat b{font-size:1.5rem;display:block}.stat small{color:#596979}.question{background:#e9f0fe;border-radius:12px;padding:20px 16px;text-align:center;margin:15px 0}.question .hint{color:#516b98;font-size:.87rem}.question strong{font-size:clamp(1.7rem,6vw,2.7rem);display:block;margin:8px 0;overflow-wrap:anywhere}.question .target{font-weight:600;font-size:1.08rem}.person-grid{display:grid;gap:9px;margin-top:12px}.person-row{display:grid;grid-template-columns:88px 1fr;align-items:center;gap:10px}.person-row label{font-weight:650}.person-row small{grid-column:2;font-size:.84rem}.person-row input{min-width:0}.answer label{font-weight:600;display:block;margin-bottom:8px}.answer input{font-size:1.15rem}.answer .feedback{font-size:.96rem;font-weight:600;margin-top:9px;min-height:22px}.right{color:#0a7952}.wrong{color:#ae2d34}button{font:inherit;border:0;border-radius:10px;padding:12px 15px;font-weight:650;cursor:pointer;background:#255db8;color:#fff}button.secondary{background:#eaf0f9;color:#264878}button:disabled{opacity:.45}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.note{color:#627184;font-size:.87rem;margin:8px 0 0}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.chip{background:#f0f3f7;padding:7px 10px;border-radius:8px;font-size:.82rem}.stars{font-size:1.5rem}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}.day{text-align:center;background:#f2f5f9;border-radius:9px;padding:8px 2px;font-size:.74rem}.day.done{background:#dcf5e8;color:#146946}.day strong{display:block;font-size:1.1rem;margin-top:3px}.badges{font-size:.87rem;color:#385270}.ok{border-color:#0b9463!important;background:#f1fbf5}.bad{border-color:#c74848!important;background:#fff4f4}.footer{margin-top:22px;color:#627184;font-size:.8rem}.tag{font-size:.72rem;background:#dbe7fb;color:#28517d;padding:4px 8px;border-radius:99px}.hidden{display:none!important}@media(max-width:500px){.panel{padding:14px}.actions button{flex:1 1 45%}}
+</style>
+<script src="config.js"></script><script src="data.js"></script>
+</head>
+<body><main class="wrap">
+<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><h1>Conjugaison ✍️</h1><span class="tag">Dictée des verbes</span></div>
+<p class="sub">Écris les formes verbales de mémoire. Corrige tes erreurs et gagne une étoile chaque jour.</p>
+<section class="panel">
+<div class="settings">
+ <div class="control"><label for="verb">Verbe</label><select id="verb"><option value="all">Tous les verbes</option></select></div>
+ <div class="control"><label for="group">Mode / temps</label><select id="group"><option value="all">Tous les temps</option></select></div>
+ <div class="control"><label for="tense">Temps</label><select id="tense"><option value="all">Tous les temps</option></select></div><div class="control"><label for="practice">Entraînement</label><select id="practice"><option value="all">Questions aléatoires</option><option value="errors">Réviser mes erreurs</option></select></div>
+</div>
+<div class="chips"><span class="chip">46 verbes · 777 tableaux</span><span class="chip">Toutes les personnes en une seule dictée</span><span class="chip">Accents et orthographe</span><span class="chip">Révision des erreurs</span></div>
+</section>
+<section class="panel">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><strong>⭐ Ma carte de réussite</strong><span class="stars" id="star">☆</span></div>
+<div style="display:flex;justify-content:space-between;gap:10px;margin:8px 0"><span id="todayText">0 / 50 tableaux corrects aujourd'hui</span><strong id="percentage">0 %</strong></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div class="stats"><div class="stat"><b id="total">0</b><small>Tableaux évalués</small></div><div class="stat"><b id="right">0</b><small>Tableaux corrects</small></div><div class="stat"><b id="streak">0</b><small>Jours consécutifs</small></div><div class="stat"><b id="errors">0</b><small>Temps à revoir</small></div></div>
+<div id="calendar" class="calendar" aria-label="Les 7 derniers jours"></div>
+<p id="motivation" class="note"></p>
+</section>
+<section class="panel">
+ <div class="question"><div class="hint" id="promptContext">Verbe à conjuguer</div><strong id="promptVerb">avoir</strong><div class="target" id="target">Indicatif · Présent</div></div>
+ <form id="quiz" autocomplete="off">
+  <div class="answer"><strong>Écris toutes les formes (sans les pronoms) :</strong><div class="person-grid" id="personFields"></div><div class="feedback" id="feedback" aria-live="polite"></div></div>
+  <div class="actions"><button id="check" type="submit">Vérifier tout</button><button id="reveal" class="secondary" type="button">Voir les réponses</button><button id="next" class="secondary" type="button">Tableau suivant →</button></div>
+ </form>
+ <p class="note">Une dictée = un temps complet (six personnes, ou les formes indiquées dans le livre). La dictée compte pour le défi quotidien uniquement si toutes les réponses sont correctes. Les accents sont vérifiés.</p>
+</section>
+<section class="panel"><strong>Mes progrès</strong><p class="note">Les résultats de tableaux complets et les jours déjà validés restent conservés à travers les mises à jour. Les progrès français sont conservés dans ce navigateur, indépendamment de l'application d'allemand. Les mises à jour à cette même adresse ne suppriment pas les données du site.</p><div class="actions"><button id="backup" type="button" class="secondary">Sauvegarder les progrès</button><button id="restore" type="button" class="secondary">Restaurer</button><input type="file" id="restoreFile" accept=".json,application/json" class="hidden"><button id="reset" type="button" class="secondary">Réinitialiser</button></div></section>
+<p class="footer">Source : tableaux de conjugaison n° 1 à 46, pages 28–73. Les formes du subjonctif imparfait et plus-que-parfait restent limitées à « il » conformément aux photos. Les résultats historiques restent stockés sous la même clé pour assurer la continuité. Les résultats restent sur cet appareil et dans ce navigateur, sauf sauvegarde manuelle.</p>
+</main>
+<script>
+(()=>{
+'use strict';
+const config=window.FRENCH_CONFIG||{};
+const dailyGoal=Math.max(1,Number(config.DAILY_GOAL)||50);
+const verbs=Array.isArray(window.FRENCH_VERBS)?window.FRENCH_VERBS:[];
+const key='french_cy_progress_v1'; // Clé stable : ne pas renommer lors des mises à jour
+const $=id=>document.getElementById(id);
+const empty=()=>({total:0,right:0,errors:{},days:{},groupTotal:0,groupRight:0,groupDays:{},groupErrors:{},completedDays:{}});
+let stats;
+try{stats={...empty(),...JSON.parse(localStorage.getItem(key)||'{}')}}catch(e){stats=empty()}
+for(const k of ['errors','days','groupDays','groupErrors','completedDays'])if(!stats[k]||typeof stats[k]!=='object')stats[k]={};
+for(const k of ['groupTotal','groupRight'])if(!Number.isFinite(stats[k]))stats[k]=0;
+const pad=n=>String(n).padStart(2,'0');
+function localDay(date=new Date()){return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`}
+function shiftDay(n){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return localDay(d)}
+const all=[];
+for(const v of verbs)for(const f of v.forms)all.push({verb:v,form:f,id:`${v.id}|${f.id}`});
+function normalize(s){return String(s||'').trim().toLocaleLowerCase('fr').replace(/’/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'')}
+function equivalent(s){const n=normalize(s);return config.REQUIRE_ACCENTS===false?n.normalize('NFD').replace(/[\u0300-\u036f]/g,''):n}
+function save(){try{localStorage.setItem(key,JSON.stringify(stats))}catch(e){$('motivation').textContent='Attention : impossible d’enregistrer sur cet appareil.'}render()}
+function achieved(k){return !!stats.completedDays[k]||(stats.groupDays[k]||0)>=dailyGoal}
+function countDays(){let count=0;for(let i=0;i<3650;i++){const k=shiftDay(-i);if(achieved(k))count++;else if(i===0)continue;else break}return count}
+function render(){const today=stats.groupDays[localDay()]||0;if(today>=dailyGoal)stats.completedDays[localDay()]=true;const pct=Math.min(100,Math.floor(100*today/dailyGoal));$('bar').style.width=pct+'%';$('todayText').textContent=`${today} / ${dailyGoal} tableaux corrects aujourd'hui`;$('percentage').textContent=pct+' %';$('star').textContent=achieved(localDay())?'⭐':'☆';$('total').textContent=stats.groupTotal;$('right').textContent=stats.groupRight;$('errors').textContent=Object.keys(stats.groupErrors).length;$('streak').textContent=countDays();$('motivation').textContent=achieved(localDay())?'Bravo ! Ton étoile du jour est gagnée ! ⭐':`Encore ${dailyGoal-today} tableau${dailyGoal-today>1?'x':''} sans faute pour gagner ton étoile !`;
+ $('calendar').replaceChildren();for(let i=-6;i<=0;i++){const k=shiftDay(i),done=achieved(k);const div=document.createElement('div');div.className='day'+(done?' done':'');const d=new Date(k+'T12:00:00');const dayName=d.toLocaleDateString('fr',{weekday:'short'});div.innerHTML=`<span>${dayName}</span><strong>${done?'★':'·'}</strong>`;div.title=`${k} : ${stats.groupDays[k]||0} tableaux corrects`;$('calendar').appendChild(div)}}
+for(const v of verbs){const o=document.createElement('option');o.value=v.id;o.textContent=v.infinitive;$('verb').append(o)}
+const groups=[...new Set(all.map(x=>x.form.group))];for(const g of groups){const o=document.createElement('option');o.value=g;o.textContent=g;$('group').append(o)}
+const tenses=[...new Set(all.map(x=>x.form.tense))];for(const t of tenses){const o=document.createElement('option');o.value=t;o.textContent=t;$('tense').append(o)}
+let current=null,corrected=false,last='';
+const legacyHasError=x=>x.form.answers.some((_,i)=>stats.errors[`${x.id}|${i}`]);
+function next(){const verb=$('verb').value,group=$('group').value,tense=$('tense').value,practice=$('practice').value;let pool=all.filter(x=>(verb==='all'||x.verb.id===verb)&&(group==='all'||x.form.group===group)&&(tense==='all'||x.form.tense===tense)&&(practice==='all'||stats.groupErrors[x.id]||legacyHasError(x)));if(!pool.length){current=null;$('promptVerb').textContent=practice==='errors'?'Aucune erreur à réviser':'Aucune forme disponible';$('target').textContent='';$('promptContext').textContent='';$('personFields').replaceChildren();$('check').disabled=true;$('reveal').disabled=true;$('feedback').textContent=practice==='errors'?'Bravo ! Choisis « Questions aléatoires ».':'';return}
+ const alternatives=pool.filter(x=>x.id!==last);if(alternatives.length)pool=alternatives;current=pool[Math.floor(Math.random()*pool.length)];last=current.id;corrected=false;$('promptContext').textContent='Verbe n° '+current.verb.number+' · page '+current.verb.page;$('promptVerb').textContent=current.verb.infinitive;$('target').textContent=`${current.form.group} · ${current.form.tense}`;$('feedback').textContent='';$('feedback').className='feedback';$('check').disabled=false;$('reveal').disabled=false;
+ $('personFields').replaceChildren();current.form.persons.forEach((person,i)=>{const row=document.createElement('div');row.className='person-row';const label=document.createElement('label');label.htmlFor=`answer-${i}`;label.textContent=person==='—'?'Forme':person;const input=document.createElement('input');input.id=`answer-${i}`;input.type='text';input.spellcheck=false;input.autocapitalize='off';input.autocomplete='off';input.dataset.index=i;input.placeholder='…';const feedback=document.createElement('small');feedback.id=`feedback-${i}`;feedback.setAttribute('aria-live','polite');row.append(label,input,feedback);$('personFields').append(row)});$('personFields input')?.focus()}
+function acceptable(expected,user){return String(expected).split(/\s+\/\s+/).some(v=>equivalent(v)===equivalent(user))}
+function grade(reveal){if(!current||corrected)return;corrected=true;let allCorrect=!reveal;let count=0;const inputs=[...$('personFields').querySelectorAll('input')];for(const [i,input] of inputs.entries()){const ans=current.form.answers[i];const good=!reveal&&acceptable(ans,input.value)&&!!input.value.trim();if(!good)allCorrect=false;else count++;input.readOnly=true;input.classList.add(good?'ok':'bad');const feedback=$(`feedback-${i}`);feedback.textContent=good?'✓ Correct':`Réponse : ${ans}`;feedback.className=good?'right':'wrong'}
+ $('check').disabled=true;$('reveal').disabled=true;
+ if(!reveal){stats.groupTotal++;if(allCorrect){stats.groupRight++;stats.groupDays[localDay()]=(stats.groupDays[localDay()]||0)+1;if(stats.groupDays[localDay()]>=dailyGoal)stats.completedDays[localDay()]=true}}
+ if(allCorrect){delete stats.groupErrors[current.id];current.form.answers.forEach((_,i)=>delete stats.errors[`${current.id}|${i}`])}else stats.groupErrors[current.id]=true;
+ $('feedback').textContent=reveal?'Les réponses sont affichées : révise ce temps plus tard.':allCorrect?'✓ Tableau entier correct ! Bravo !':`${count} / ${inputs.length} formes correctes. Ce temps est ajouté à tes révisions.`;
+ $('feedback').className='feedback '+(allCorrect?'right':'wrong');save();$('next').focus()}
+$('quiz').onsubmit=e=>{e.preventDefault();if(corrected)next();else grade(false)};$('reveal').onclick=()=>grade(true);$('next').onclick=next;for(const id of ['verb','group','tense','practice'])$(id).onchange=next;
+$('backup').onclick=()=>{const blob=new Blob([JSON.stringify({format:'french-cy-progress-v1',savedAt:new Date().toISOString(),stats},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`francais-progres-${localDay()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)};
+$('restore').onclick=()=>$('restoreFile').click();$('restoreFile').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const o=JSON.parse(await file.text());if(o.format!=='french-cy-progress-v1'||!o.stats||typeof o.stats.total!=='number'||typeof o.stats.right!=='number'||!o.stats.days||!o.stats.errors)throw Error();if(confirm('Remplacer les progrès actuels par cette sauvegarde ?')){stats={...empty(),...o.stats};for(const k of ['groupDays','groupErrors','completedDays'])if(!stats[k]||typeof stats[k]!=='object')stats[k]={};save();next()}}catch(err){alert('Fichier de sauvegarde non reconnu.')}e.target.value=''};
+$('reset').onclick=()=>{if(confirm('Effacer toutes les statistiques françaises et les étoiles ?')){stats=empty();save();next()}};
+// Préserve les étoiles gagnées avant un éventuel changement de DAILY_GOAL.
+for(const [day,count] of Object.entries(stats.groupDays)){if(count>=50)stats.completedDays[day]=true}
+render();next();
+})();
+</script>
+</body></html>
