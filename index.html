@@ -25,8 +25,15 @@
 .achievement.earned{background:#fff2ca;border-color:#eed18b;color:#6e4a05;font-weight:650}
 @media(max-width:430px){.days{gap:4px}.day{min-height:59px;padding:6px 1px}.day .day-label{font-size:.65rem}}
 </style>
-</head>
-<body><main class="wrap"><h1>Unregelmäßige Verben</h1><p class="sub">Schreibtrainer · Zufällige Formen · Sofortige Korrektur</p>
+<link rel="stylesheet" href="./shared/sync.css"></head>
+<body><section id="cloud-panel" aria-label="Cloud learning sync">
+ <strong id="cloud-title">☁ Lernstand synchronisieren</strong>
+ <p class="cloud-note" id="cloud-explain">Nur einmal auf dem Gerät anmelden. Bestehende Lernstände bleiben lokal erhalten.</p>
+ <p id="cloud-status" class="cloud-status" aria-live="polite">Cloud-Verbindung wird geprüft…</p>
+ <div class="cloud-form" id="cloud-login"><input id="cloud-email" type="email" autocomplete="username" placeholder="E-Mail"><input id="cloud-password" type="password" autocomplete="current-password" placeholder="Passwort"><button type="button" id="cloud-signin">Anmelden</button></div>
+ <div class="cloud-actions" id="cloud-choose" hidden><button type="button" id="cloud-upload">Lokalen Lernstand hochladen</button><button type="button" class="alt" id="cloud-download">Cloud-Lernstand übernehmen</button><button type="button" class="alt" id="cloud-later">Später entscheiden</button></div>
+ <div class="cloud-actions"><button type="button" class="alt" id="cloud-signout" hidden>Abmelden</button><button type="button" class="alt" id="cloud-retry" hidden>Jetzt synchronisieren</button></div>
+ </section><main class="wrap"><h1>Unregelmäßige Verben</h1><p class="sub">Schreibtrainer · Zufällige Formen · Sofortige Korrektur</p>
 <section class="panel"><div class="settings"><div><label for="group">Wortgruppe</label><select id="group"><option value="all">Alle Verben</option><option value="hilfs">Hilfsverben (S. 320)</option><option value="modal">Modalverben (S. 320)</option><option value="stark321">Starke Verben (S. 321)</option><option value="stark322">Starke Verben (S. 322)</option><option value="stark323">Starke Verben (S. 323)</option><option value="stark324">Starke Verben (S. 324)</option><option value="stark325">Starke Verben (S. 325)</option><option value="stark326">Starke Verben (S. 326)</option><option value="stark327">Starke Verben (S. 327)</option><option value="stark328">Starke Verben (S. 328)</option><option value="special330">Bedeutungswechsel (S. 330)</option><option value="special331">Bedeutungswechsel (S. 331)</option><option value="special332">Bedeutungswechsel (S. 332)</option></select></div><div><label for="mode">Übungsmodus</label><select id="mode"><option value="random">Zufällige Verben</option><option value="errors">Nur Fehler wiederholen</option></select></div><label class="checkrow"><input id="present" type="checkbox">Sonderformen im Präsens abfragen</label></div></section>
 <section class="panel" id="stempelkarte">
   <div class="goal-top"><div><h2>⭐ Meine Stempelkarte</h2><p id="goal-explanation">Jeden Tag 50 Aufgaben vollständig richtig lösen!</p></div><div class="streak-pill">🔥 <span id="streak">0</span> Tage in Folge</div></div>
@@ -310,7 +317,7 @@ $('goal-rule').textContent=`Ein Stempel wird nach ${DAILY_GOAL} vollständig ric
 $('present').checked=CONFIG.ASK_PRESENT_BY_DEFAULT===true;
 function recordCorrectPractice(){const today=dayKey();daily.counts[today]=(daily.counts[today]||0)+1;if(daily.counts[today]>=DAILY_GOAL&&!daily.stamps.includes(today))daily.stamps.push(today);saveDaily()}
 
-function store(){localStorage.setItem(key,JSON.stringify(stats));renderStats()}
+function store(){localStorage.setItem(key,JSON.stringify(stats));renderStats();window.dispatchEvent(new CustomEvent('learning-progress-saved',{detail:{lang:'de'}}))}
 function renderStats(){$('total').textContent=stats.total;$('right').textContent=stats.right;$('errorcount').textContent=stats.errors.length}
 function norm(s){return(s||'').toLocaleLowerCase('de').trim().replace(/\s+/g,' ').replace(/[.,;]+$/,'')}
 function expandVariant(text){
@@ -357,7 +364,7 @@ function errorId(entry){return entry.id||entry.inf}
 function next(){const group=$('group').value,mode=$('mode').value;let pool=entries.filter(e=>(group==='all'||e.group===group)&&(mode!=='errors'||(stats.errors.includes(errorId(e))||stats.errors.includes(e.inf))));if(!pool.length){$('meaning-hint').classList.add('hidden');$('given-value').textContent=mode==='errors'?'Keine Fehler in dieser Gruppe':'Keine Verben';$('given-label').textContent='';$('fields').innerHTML='';$('message').textContent=mode==='errors'?'Prima! Wähle „Zufällige Verben“, um weiterzuüben.':'';current=null;return}
  let choices=pool.filter(e=>e.inf!==lastInf);if(!choices.length)choices=pool;current=choices[Math.floor(Math.random()*choices.length)];lastInf=current.inf;const src=['inf','pre','part'][Math.floor(Math.random()*3)];current.src=src;corrected=false;$('given-label').textContent=titles[src];$('given-value').textContent=current[src];const hint=$('meaning-hint');hint.classList.toggle('hidden',!current.meaning);hint.textContent=current.meaning?'Bedeutung ('+current.variant+'): '+current.meaning:'';$('message').textContent='';$('check').disabled=false;$('reveal').disabled=false;$('fields').innerHTML='';const fields=['inf','pre','part','aux'];if($('present').checked&&current.present)fields.push('present');for(const field of fields){if(field===src)continue;const el=document.createElement('div');el.className='field';const lbl=document.createElement('label');lbl.htmlFor='answer-'+field;lbl.textContent=titles[field];const inp=document.createElement('input');inp.id='answer-'+field;inp.dataset.field=field;inp.type='text';inp.spellcheck=false;inp.autocomplete='off';inp.autocapitalize='off';const fb=document.createElement('div');fb.className='feedback';el.append(lbl,inp,fb);$('fields').append(el)}$('fields').querySelector('input')?.focus()}
 function evaluate(reveal=false){if(!current||corrected)return;let all=true;for(const inp of $('fields').querySelectorAll('input')){const f=inp.dataset.field,ans=current[f],ok=correct(inp.value,ans,f);if(!ok)all=false;inp.classList.add(ok?'correct':'wrong');inp.readOnly=true;const fb=inp.nextElementSibling;fb.textContent=ok?'✓ Richtig':`Lösung: ${ans}`;fb.className='feedback'+(ok?' good':'')}
- corrected=true;$('check').disabled=true;$('reveal').disabled=true;if(!reveal){stats.total++;if(all){stats.right++;recordCorrectPractice()}}if(!all||reveal){if(!stats.errors.includes(errorId(current)))stats.errors.push(errorId(current))}else{stats.errors=stats.errors.filter(x=>x!==current.inf&&x!==errorId(current))}store();$('message').textContent=reveal?'Lösung angezeigt – später noch einmal üben.':all?'Alles richtig! Sehr gut!':'Nicht ganz richtig – das Verb kommt in die Fehlerliste.';$('next').focus()}
+ corrected=true;$('check').disabled=true;$('reveal').disabled=true;if(!reveal){stats.total++;if(all){stats.right++;recordCorrectPractice()}window.dispatchEvent(new CustomEvent('learning-progress-changed',{detail:{lang:'de',correct:all,question:errorId(current),day:dayKey()}}))}if(!all||reveal){if(!stats.errors.includes(errorId(current)))stats.errors.push(errorId(current))}else{stats.errors=stats.errors.filter(x=>x!==current.inf&&x!==errorId(current))}store();$('message').textContent=reveal?'Lösung angezeigt – später noch einmal üben.':all?'Alles richtig! Sehr gut!':'Nicht ganz richtig – das Verb kommt in die Fehlerliste.';$('next').focus()}
 // Versionsübergreifende, manuell übertragbare Sicherung – unabhängig vom Dateinamen.
 const BACKUP_FORMAT='deutsche-verben-lernfortschritt';
 const BACKUP_VERSION=1;
@@ -399,4 +406,4 @@ $('backup-file').addEventListener('change',async(e)=>{
 });
 
 $('quiz').addEventListener('submit',e=>{e.preventDefault();if(corrected)next();else evaluate(false)});$('reveal').onclick=()=>evaluate(true);$('next').onclick=next;$('group').onchange=next;$('mode').onchange=next;$('present').onchange=next;$('reset').onclick=()=>{if(confirm('Fehlerliste und Statistik wirklich löschen?')){stats={total:0,right:0,errors:[]};store();next()}};renderStats();renderDaily();next();
-</script></body></html>
+</script><script type="module" src="./shared/sync.js"></script></body></html>

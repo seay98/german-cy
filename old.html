@@ -2,10 +2,11 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unregelmäßige Verben – Schreibtrainer</title>
+<title>Unregelmäßige Verben – Schreibtrainer V6</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#17243a;background:#f3f6fa}*{box-sizing:border-box}body{margin:0}.wrap{max-width:850px;margin:auto;padding:24px 16px 56px}h1{font-size:clamp(1.55rem,4vw,2.25rem);margin:6px 0 4px}.sub{color:#53637b;margin:0 0 24px}.panel{background:white;border:1px solid #dfe6ef;border-radius:16px;padding:20px;box-shadow:0 7px 22px #1f3b5a0a;margin-bottom:16px}.settings{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.settings label{font-size:.9rem;color:#33445c;display:block}.settings select{margin-top:5px;min-width:160px;padding:10px;border:1px solid #bac7d8;border-radius:9px;background:white;font-size:1rem}.checkrow{display:flex;align-items:center;gap:8px;padding:10px 0;color:#243850}.checkrow input{width:18px;height:18px}.stats{display:flex;gap:12px;flex-wrap:wrap}.stat{flex:1;min-width:110px;background:#f3f7ff;border-radius:10px;padding:11px 14px}.stat b{display:block;font-size:1.45rem}.stat span{color:#50607a;font-size:.8rem}.question{border-radius:12px;background:#eaf1fc;padding:18px;text-align:center;margin:16px 0 22px}.question .kicker{font-size:.85rem;color:#526783}.question strong{display:block;margin-top:9px;font-size:clamp(1.8rem,5vw,2.7rem);overflow-wrap:anywhere}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:6px}.field input{font:inherit;width:100%;border:1.5px solid #b6c4d8;border-radius:9px;padding:12px;background:white;outline-color:#3467c5}.field input.correct{border-color:#1e925d;background:#effaf4}.field input.wrong{border-color:#c84949;background:#fff3f3}.feedback{font-size:.84rem;margin-top:5px;min-height:18px;color:#9b3434;overflow-wrap:anywhere}.feedback.good{color:#14784a}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}button{border:0;border-radius:9px;padding:12px 17px;font:inherit;font-weight:650;cursor:pointer;background:#235cba;color:white}button.secondary{background:#e8eef8;color:#244577}button:disabled{opacity:.45;cursor:not-allowed}.foot{color:#6b788c;font-size:.82rem;margin-top:16px}.message{font-weight:600;margin-top:13px;min-height:22px}.hidden{display:none!important}@media(max-width:550px){.fields{grid-template-columns:1fr}.panel{padding:16px}.settings select{width:100%}.settings>div{flex:1;min-width:150px}}
 
+.meaning-hint{margin:12px auto 0;padding:9px 13px;max-width:540px;border-radius:9px;background:#fff;font-size:.94rem;color:#33445c;line-height:1.5}
 /* Tägliches Lernziel und Stempelkarte */
 .goal-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .goal-top h2{margin:0;font-size:1.2rem}.goal-top p{margin:4px 0;color:#53637b;font-size:.9rem}
@@ -26,21 +27,29 @@
 </style>
 </head>
 <body><main class="wrap"><h1>Unregelmäßige Verben</h1><p class="sub">Schreibtrainer · Zufällige Formen · Sofortige Korrektur</p>
-<section class="panel"><div class="settings"><div><label for="group">Wortgruppe</label><select id="group"><option value="all">Alle Verben</option><option value="hilfs">Hilfsverben (S. 320)</option><option value="modal">Modalverben (S. 320)</option><option value="stark321">Starke Verben (S. 321)</option><option value="stark322">Starke Verben (S. 322)</option><option value="stark323">Starke Verben (S. 323)</option><option value="stark324">Starke Verben (S. 324)</option><option value="stark325">Starke Verben (S. 325)</option><option value="stark326">Starke Verben (S. 326)</option><option value="stark327">Starke Verben (S. 327)</option><option value="stark328">Starke Verben (S. 328)</option></select></div><div><label for="mode">Übungsmodus</label><select id="mode"><option value="random">Zufällige Verben</option><option value="errors">Nur Fehler wiederholen</option></select></div><label class="checkrow"><input id="present" type="checkbox">Sonderformen im Präsens abfragen</label></div></section>
+<section class="panel"><div class="settings"><div><label for="group">Wortgruppe</label><select id="group"><option value="all">Alle Verben</option><option value="hilfs">Hilfsverben (S. 320)</option><option value="modal">Modalverben (S. 320)</option><option value="stark321">Starke Verben (S. 321)</option><option value="stark322">Starke Verben (S. 322)</option><option value="stark323">Starke Verben (S. 323)</option><option value="stark324">Starke Verben (S. 324)</option><option value="stark325">Starke Verben (S. 325)</option><option value="stark326">Starke Verben (S. 326)</option><option value="stark327">Starke Verben (S. 327)</option><option value="stark328">Starke Verben (S. 328)</option><option value="special330">Bedeutungswechsel (S. 330)</option><option value="special331">Bedeutungswechsel (S. 331)</option><option value="special332">Bedeutungswechsel (S. 332)</option></select></div><div><label for="mode">Übungsmodus</label><select id="mode"><option value="random">Zufällige Verben</option><option value="errors">Nur Fehler wiederholen</option></select></div><label class="checkrow"><input id="present" type="checkbox">Sonderformen im Präsens abfragen</label></div></section>
 <section class="panel" id="stempelkarte">
-  <div class="goal-top"><div><h2>⭐ Meine Stempelkarte</h2><p>Jeden Tag 50 Aufgaben vollständig richtig lösen!</p></div><div class="streak-pill">🔥 <span id="streak">0</span> Tage in Folge</div></div>
+  <div class="goal-top"><div><h2>⭐ Meine Stempelkarte</h2><p id="goal-explanation">Jeden Tag 50 Aufgaben vollständig richtig lösen!</p></div><div class="streak-pill">🔥 <span id="streak">0</span> Tage in Folge</div></div>
   <div class="progress-outer" role="progressbar" aria-label="Tagesziel" aria-valuemin="0" aria-valuemax="50" aria-valuenow="0" id="goal-bar"><div id="goal-fill" class="progress-inner"></div></div>
   <div id="goal-label" class="progress-label">Heute: 0 / 50 richtige Aufgaben</div>
   <div id="stamp-success" class="stamp-success" aria-live="polite"></div>
   <div class="days" id="days" aria-label="Die letzten sieben Tage"></div>
   <div class="goal-top"><span class="foot" id="stamp-total">0 Stempel insgesamt</span><span class="foot" id="best-streak">Längste Serie: 0 Tage</span></div>
   <div class="achievements" id="achievements"></div>
-  <p class="foot">Ein Stempel wird nach 50 vollständig richtig gelösten Aufgaben pro Tag vergeben. Falsche Antworten und „Lösung zeigen“ zählen nicht. Deine Fortschritte werden nur in diesem Browser gespeichert.</p>
+  <p class="foot" id="goal-rule">Ein Stempel wird nach 50 vollständig richtig gelösten Aufgaben pro Tag vergeben. Falsche Antworten und „Lösung zeigen“ zählen nicht. Deine Fortschritte werden in diesem Browser gespeichert. Unter „Lernfortschritt sichern & laden“ kannst du eine Sicherung für Updates erstellen.</p>
 </section>
-<section class="panel"><div class="stats"><div class="stat"><b id="total">0</b><span>Geprüfte Aufgaben</span></div><div class="stat"><b id="right">0</b><span>Vollständig richtig</span></div><div class="stat"><b id="errorcount">0</b><span>Verben in der Fehlerliste</span></div></div><div class="question"><span class="kicker" id="given-label">Gegebene Form</span><strong id="given-value">…</strong></div><form id="quiz" autocomplete="off"><div class="fields" id="fields"></div><div class="message" id="message" aria-live="polite"></div><div class="actions"><button type="submit" id="check">Überprüfen</button><button type="button" class="secondary" id="reveal">Lösung zeigen</button><button type="button" class="secondary" id="next">Nächstes Verb →</button></div></form><p class="foot">Tipp: Drücke Enter zum Überprüfen. Nach der Korrektur führt Enter zum nächsten Verb. Groß-/Kleinschreibung wird nicht bewertet. Die Fehlerliste bleibt auf diesem Gerät gespeichert.</p></section>
-<section class="panel"><strong>So funktioniert's</strong><p>Du siehst zufällig den Infinitiv, das Präteritum oder das Partizip II. Trage die übrigen Formen und das Hilfsverb ein. Wähle danach „Überprüfen“. Falsche Verben kannst du gezielt wiederholen. Bei Verben mit zwei Hilfsverben sind beide zulässig.</p><button class="secondary" id="reset">Fehlerliste und Statistik löschen</button></section>
-</main><script>
-// Die Formen sind aus den fotografierten Lehrbuchseiten 320–328 übertragen.
+<section class="panel"><div class="stats"><div class="stat"><b id="total">0</b><span>Geprüfte Aufgaben</span></div><div class="stat"><b id="right">0</b><span>Vollständig richtig</span></div><div class="stat"><b id="errorcount">0</b><span>Verben in der Fehlerliste</span></div></div><div class="question"><span class="kicker" id="given-label">Gegebene Form</span><strong id="given-value">…</strong><p id="meaning-hint" class="meaning-hint hidden"></p></div><form id="quiz" autocomplete="off"><div class="fields" id="fields"></div><div class="message" id="message" aria-live="polite"></div><div class="actions"><button type="submit" id="check">Überprüfen</button><button type="button" class="secondary" id="reveal">Lösung zeigen</button><button type="button" class="secondary" id="next">Nächstes Verb →</button></div></form><p class="foot">Tipp: Drücke Enter zum Überprüfen. Nach der Korrektur führt Enter zum nächsten Verb. Groß-/Kleinschreibung wird nicht bewertet. Die Fehlerliste bleibt auf diesem Gerät gespeichert.</p></section>
+<section class="panel" id="backup-panel">
+  <strong>💾 Lernfortschritt sichern &amp; laden</strong>
+  <p>Optional: Sichere deinen Lernstand für einen Gerätewechsel oder zum Schutz vor gelöschten Browserdaten.</p>
+  <div class="actions"><button type="button" id="export-progress">⬇ Fortschritt sichern</button><button type="button" class="secondary" id="import-progress">⬆ Fortschritt laden</button></div>
+  <input id="backup-file" class="hidden" type="file" accept=".json,application/json" aria-label="Gesicherten Lernfortschritt auswählen">
+  <p class="foot" id="backup-status" aria-live="polite">Optional: Erstelle eine Sicherung für einen Gerätewechsel oder falls Browserdaten gelöscht werden.</p>
+</section>
+<section class="panel"><strong>So funktioniert's</strong><p>Du siehst zufällig den Infinitiv, das Präteritum oder das Partizip II. Trage die übrigen Formen und das Hilfsverb ein. Wähle danach „Überprüfen“. Falsche Verben kannst du gezielt wiederholen. Bei Verben mit zwei Hilfsverben sind beide zulässig. Bei bedeutungsabhängigen Formen zeigt ein Hinweis an, welche Variante gemeint ist.</p><button class="secondary" id="reset">Fehlerliste und Statistik löschen</button></section>
+</main><script src="./config.js"></script>
+<script>
+// Die Formen sind aus den fotografierten Lehrbuchseiten 320–332 übertragen.
 // Format: Infinitiv | Präteritum | Partizip II | haben/sein | Präsens-Sonderform
 const raw={
  hilfs:`haben|hatte|gehabt|haben|du hast; er hat
@@ -209,14 +218,50 @@ werfen|warf|geworfen|haben|du wirfst; er wirft`,
 wissen|wusste|gewusst|haben|ich weiß; du weißt; er weiß
 wringen|wrang|gewrungen|haben|
 ziehen|zog|gezogen|haben/sein|
-zwingen|zwang|gezwungen|haben|`
+zwingen|zwang|gezwungen|haben/sein|`
+};
+// Dieselben Infinitive können je nach Bedeutung stark oder schwach konjugiert werden.
+// Infinitiv | Präteritum | Partizip II | Hilfsverb | Bedeutungshinweis | Variante
+const extraRaw={
+ special330:`bewegen|bewog|bewogen|haben|zu einer Handlung veranlassen|stark
+bewegen|bewegte|bewegt|haben|berühren; Gefühle auslösen; sich rühren|schwach
+erschrecken|erschrak|erschrocken|sein|plötzlich große Angst bekommen|stark
+erschrecken|erschreckte|erschreckt|haben|jemandem absichtlich Angst machen|schwach
+gären|gor|gegoren|haben/sein|Flüssigkeit gärt; Gärung durchlaufen|stark
+gären|gärte|gegärt|haben|Wut oder Unzufriedenheit wird stärker|schwach
+hängen|hing|gehangen|haben|irgendwo hängen; befestigt sein|stark
+hängen|hängte|gehängt|haben|etwas irgendwo aufhängen; jemanden hinrichten|schwach`,
+ special331:`schaffen|schuf|geschaffen|haben|etwas hervorbringen; schöpferisch gestalten|stark
+schaffen|schaffte|geschafft|haben|etwas bewältigen; fertig werden; hinbringen|schwach
+scheren|schor (scherte)|geschoren (geschert)|haben|Haare, Fell oder Hecke schneiden|stark
+scheren|scherte|geschert|haben|sich um etwas kümmern; etwas beachten|schwach
+schleifen|schliff|geschliffen|haben|ein Schneidegerät schärfen|stark
+schleifen|schleifte|geschleift|haben|etwas über den Boden ziehen|schwach`,
+ special332:`schwellen|schwoll|geschwollen|sein|sich ausdehnen; größer werden|stark
+schwellen|schwellte|geschwellt|haben|Wind schwellt die Segel|schwach
+senden|sandte|gesandt|haben|Radio- oder Fernsehsendungen ausstrahlen|stark
+senden|sendete|gesendet|haben|etwas an jemanden schicken|schwach
+wachsen|wuchs|gewachsen|sein|größer werden; sich entwickeln|stark
+wachsen|wachste|gewachst|haben|mit Wachs versehen|schwach
+weichen|wich|gewichen|sein|weggehen; nachgeben; verschwinden|stark
+weichen|weichte|geweicht|haben|etwas weich machen|schwach
+wiegen|wog|gewogen|haben|das Gewicht bestimmen|stark
+wiegen|wiegte|gewiegt|haben|sanft hin und her schaukeln|schwach`
 };
 const entries=Object.entries(raw).flatMap(([group,data])=>data.trim().split('\n').map(line=>{const [inf,pre,part,aux,present]=line.split('|');return {group,inf,pre,part,aux,present:present||''}}));
+// Neue Datensätze mit Bedeutungshinweisen und eindeutigen Fehlerlisten-IDs.
+entries.push(...Object.entries(extraRaw).flatMap(([group,data])=>data.trim().split('\n').map(line=>{
+ const [inf,pre,part,aux,meaning,variant]=line.split('|');
+ return {group,inf,pre,part,aux,meaning,variant,present:'',id:inf+'#'+variant};
+})));
 const key='unregelmaessige_verben_320_328_v2';
 let stats;try{stats=JSON.parse(localStorage.getItem(key))||{total:0,right:0,errors:[]}}catch{stats={total:0,right:0,errors:[]}}
 const $=id=>document.getElementById(id);let current=null,corrected=false,lastInf='';
 const dailyKey='unregelmaessige_verben_stempelkarte_v4_richtig50';
-const DAILY_GOAL=50;
+// Die Konfiguration wird separat geladen, die Lernstände bleiben unter denselben Schlüsseln.
+const CONFIG=window.VERBEN_CONFIG||{};
+const DAILY_GOAL=Number.isSafeInteger(CONFIG.DAILY_GOAL)&&CONFIG.DAILY_GOAL>0?CONFIG.DAILY_GOAL:50;
+const ACHIEVEMENT_DAYS=Array.isArray(CONFIG.ACHIEVEMENT_DAYS)&&CONFIG.ACHIEVEMENT_DAYS.length&&CONFIG.ACHIEVEMENT_DAYS.every(x=>Number.isSafeInteger(x)&&x>0)?[...new Set(CONFIG.ACHIEVEMENT_DAYS)].sort((a,b)=>a-b):[1,3,7,14,30];
 let daily;
 try { daily=JSON.parse(localStorage.getItem(dailyKey)) } catch { daily=null }
 if(!daily||typeof daily!=='object'||Array.isArray(daily)) daily={counts:{},stamps:[]};
@@ -237,6 +282,7 @@ function saveDaily(){localStorage.setItem(dailyKey,JSON.stringify(daily));render
 function renderDaily(){
  const today=dayKey();const count=daily.counts[today]||0;const progress=Math.min(DAILY_GOAL,count);
  $('goal-fill').style.width=(progress/DAILY_GOAL*100)+'%';
+ $('goal-bar').setAttribute('aria-valuemax',DAILY_GOAL);
  $('goal-bar').setAttribute('aria-valuenow',progress);
  $('goal-label').textContent=`Heute: ${progress} / ${DAILY_GOAL} richtige Aufgaben`;
  const done=daily.stamps.includes(today);
@@ -253,12 +299,15 @@ function renderDaily(){
   div.append(name,mark);div.title=dayKey(date)+(stamped?' – geschafft':' – offen');$('days').append(div)
  }
  $('achievements').replaceChildren();
- for(const threshold of [1,3,7,14,30]){
+ for(const threshold of ACHIEVEMENT_DAYS){
   const badge=document.createElement('span');const unlocked=streak.best>=threshold;
   badge.className='achievement'+(unlocked?' earned':'');
   badge.textContent=(unlocked?'🏆 ':'🔒 ')+threshold+' '+(threshold===1?'Tag':'Tage')+' in Folge';$('achievements').append(badge)
  }
 }
+$('goal-explanation').textContent=`Jeden Tag ${DAILY_GOAL} Aufgaben vollständig richtig lösen!`;
+$('goal-rule').textContent=`Ein Stempel wird nach ${DAILY_GOAL} vollständig richtig gelösten Aufgaben pro Tag vergeben. Falsche Antworten und „Lösung zeigen“ zählen nicht. Deine Fortschritte werden in diesem Browser gespeichert. Unter „Lernfortschritt sichern & laden“ kannst du eine Sicherung erstellen.`;
+$('present').checked=CONFIG.ASK_PRESENT_BY_DEFAULT===true;
 function recordCorrectPractice(){const today=dayKey();daily.counts[today]=(daily.counts[today]||0)+1;if(daily.counts[today]>=DAILY_GOAL&&!daily.stamps.includes(today))daily.stamps.push(today);saveDaily()}
 
 function store(){localStorage.setItem(key,JSON.stringify(stats));renderStats()}
@@ -304,9 +353,50 @@ function correct(value,expected,field){
   return optionsFor(expected,field).includes(v)
 }
 const titles={inf:'Infinitiv',pre:'Präteritum (3. Person Singular)',part:'Partizip II',aux:'Hilfsverb (haben / sein)',present:'Sonderformen im Präsens'};
-function next(){const group=$('group').value,mode=$('mode').value;let pool=entries.filter(e=>(group==='all'||e.group===group)&&(mode!=='errors'||stats.errors.includes(e.inf)));if(!pool.length){$('given-value').textContent=mode==='errors'?'Keine Fehler in dieser Gruppe':'Keine Verben';$('given-label').textContent='';$('fields').innerHTML='';$('message').textContent=mode==='errors'?'Prima! Wähle „Zufällige Verben“, um weiterzuüben.':'';current=null;return}
- let choices=pool.filter(e=>e.inf!==lastInf);if(!choices.length)choices=pool;current=choices[Math.floor(Math.random()*choices.length)];lastInf=current.inf;const src=['inf','pre','part'][Math.floor(Math.random()*3)];current.src=src;corrected=false;$('given-label').textContent=titles[src];$('given-value').textContent=current[src];$('message').textContent='';$('check').disabled=false;$('reveal').disabled=false;$('fields').innerHTML='';const fields=['inf','pre','part','aux'];if($('present').checked&&current.present)fields.push('present');for(const field of fields){if(field===src)continue;const el=document.createElement('div');el.className='field';const lbl=document.createElement('label');lbl.htmlFor='answer-'+field;lbl.textContent=titles[field];const inp=document.createElement('input');inp.id='answer-'+field;inp.dataset.field=field;inp.type='text';inp.spellcheck=false;inp.autocomplete='off';inp.autocapitalize='off';const fb=document.createElement('div');fb.className='feedback';el.append(lbl,inp,fb);$('fields').append(el)}$('fields').querySelector('input')?.focus()}
+function errorId(entry){return entry.id||entry.inf}
+function next(){const group=$('group').value,mode=$('mode').value;let pool=entries.filter(e=>(group==='all'||e.group===group)&&(mode!=='errors'||(stats.errors.includes(errorId(e))||stats.errors.includes(e.inf))));if(!pool.length){$('meaning-hint').classList.add('hidden');$('given-value').textContent=mode==='errors'?'Keine Fehler in dieser Gruppe':'Keine Verben';$('given-label').textContent='';$('fields').innerHTML='';$('message').textContent=mode==='errors'?'Prima! Wähle „Zufällige Verben“, um weiterzuüben.':'';current=null;return}
+ let choices=pool.filter(e=>e.inf!==lastInf);if(!choices.length)choices=pool;current=choices[Math.floor(Math.random()*choices.length)];lastInf=current.inf;const src=['inf','pre','part'][Math.floor(Math.random()*3)];current.src=src;corrected=false;$('given-label').textContent=titles[src];$('given-value').textContent=current[src];const hint=$('meaning-hint');hint.classList.toggle('hidden',!current.meaning);hint.textContent=current.meaning?'Bedeutung ('+current.variant+'): '+current.meaning:'';$('message').textContent='';$('check').disabled=false;$('reveal').disabled=false;$('fields').innerHTML='';const fields=['inf','pre','part','aux'];if($('present').checked&&current.present)fields.push('present');for(const field of fields){if(field===src)continue;const el=document.createElement('div');el.className='field';const lbl=document.createElement('label');lbl.htmlFor='answer-'+field;lbl.textContent=titles[field];const inp=document.createElement('input');inp.id='answer-'+field;inp.dataset.field=field;inp.type='text';inp.spellcheck=false;inp.autocomplete='off';inp.autocapitalize='off';const fb=document.createElement('div');fb.className='feedback';el.append(lbl,inp,fb);$('fields').append(el)}$('fields').querySelector('input')?.focus()}
 function evaluate(reveal=false){if(!current||corrected)return;let all=true;for(const inp of $('fields').querySelectorAll('input')){const f=inp.dataset.field,ans=current[f],ok=correct(inp.value,ans,f);if(!ok)all=false;inp.classList.add(ok?'correct':'wrong');inp.readOnly=true;const fb=inp.nextElementSibling;fb.textContent=ok?'✓ Richtig':`Lösung: ${ans}`;fb.className='feedback'+(ok?' good':'')}
- corrected=true;$('check').disabled=true;$('reveal').disabled=true;if(!reveal){stats.total++;if(all){stats.right++;recordCorrectPractice()}}if(!all||reveal){if(!stats.errors.includes(current.inf))stats.errors.push(current.inf)}else{stats.errors=stats.errors.filter(x=>x!==current.inf)}store();$('message').textContent=reveal?'Lösung angezeigt – später noch einmal üben.':all?'Alles richtig! Sehr gut!':'Nicht ganz richtig – das Verb kommt in die Fehlerliste.';$('next').focus()}
+ corrected=true;$('check').disabled=true;$('reveal').disabled=true;if(!reveal){stats.total++;if(all){stats.right++;recordCorrectPractice()}}if(!all||reveal){if(!stats.errors.includes(errorId(current)))stats.errors.push(errorId(current))}else{stats.errors=stats.errors.filter(x=>x!==current.inf&&x!==errorId(current))}store();$('message').textContent=reveal?'Lösung angezeigt – später noch einmal üben.':all?'Alles richtig! Sehr gut!':'Nicht ganz richtig – das Verb kommt in die Fehlerliste.';$('next').focus()}
+// Versionsübergreifende, manuell übertragbare Sicherung – unabhängig vom Dateinamen.
+const BACKUP_FORMAT='deutsche-verben-lernfortschritt';
+const BACKUP_VERSION=1;
+function validObject(v){return v!==null&&typeof v==='object'&&!Array.isArray(v)}
+function validNonnegativeInteger(n){return Number.isSafeInteger(n)&&n>=0}
+function validateBackup(data){
+ if(!validObject(data)||data.format!==BACKUP_FORMAT||data.version!==BACKUP_VERSION)throw Error('Diese Datei ist keine gültige Lernstand-Sicherung.');
+ const st=data.stats,da=data.daily;
+ if(!validObject(st)||!validNonnegativeInteger(st.total)||!validNonnegativeInteger(st.right)||st.right>st.total||!Array.isArray(st.errors)||!st.errors.every(x=>typeof x==='string'&&x.length<=150))throw Error('Die Statistik in der Sicherung ist ungültig.');
+ if(!validObject(da)||!validObject(da.counts)||!Array.isArray(da.stamps))throw Error('Die Stempelkarte in der Sicherung ist ungültig.');
+ if(!Object.entries(da.counts).every(([d,n])=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&validNonnegativeInteger(n))||!da.stamps.every(d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)))throw Error('Die Tagesdaten in der Sicherung sind ungültig.');
+ return {stats:{total:st.total,right:st.right,errors:[...new Set(st.errors)]},daily:{counts:{...da.counts},stamps:[...new Set(da.stamps)].sort()}};
+}
+function backupStatus(message,failed=false){$('backup-status').textContent=message;$('backup-status').style.color=failed?'#aa3131':'#14784a'}
+$('export-progress').addEventListener('click',()=>{
+ try{
+  const payload={format:BACKUP_FORMAT,version:BACKUP_VERSION,exportedAt:new Date().toISOString(),stats,daily};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='verben-lernstand-'+dayKey()+'.json';document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  backupStatus('Sicherung erstellt. Bewahre die JSON-Datei für das nächste Update auf.');
+ }catch(e){backupStatus('Speichern nicht möglich: '+e.message,true)}
+});
+$('import-progress').addEventListener('click',()=>{$('backup-file').value='';$('backup-file').click()});
+$('backup-file').addEventListener('change',async(e)=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>2_000_000)throw Error('Die Sicherungsdatei ist zu groß.');
+  const imported=validateBackup(JSON.parse(await file.text()));
+  if(!confirm('Gesicherten Lernstand laden? Die aktuellen Daten in diesem Browser werden dadurch ersetzt. Sichere sie vorher, falls du sie behalten möchtest.')){backupStatus('Import abgebrochen.');return}
+  // Beide Speichereinträge werden vor dem Aktualisieren der Ansicht geschrieben.
+  localStorage.setItem(key,JSON.stringify(imported.stats));
+  localStorage.setItem(dailyKey,JSON.stringify(imported.daily));
+  stats=imported.stats;daily=imported.daily;
+  renderStats();renderDaily();next();
+  backupStatus('Lernstand erfolgreich geladen! Statistik, Fehler und Stempel sind wieder da.');
+ }catch(err){backupStatus('Import fehlgeschlagen: '+err.message,true)}
+});
+
 $('quiz').addEventListener('submit',e=>{e.preventDefault();if(corrected)next();else evaluate(false)});$('reveal').onclick=()=>evaluate(true);$('next').onclick=next;$('group').onchange=next;$('mode').onchange=next;$('present').onchange=next;$('reset').onclick=()=>{if(confirm('Fehlerliste und Statistik wirklich löschen?')){stats={total:0,right:0,errors:[]};store();next()}};renderStats();renderDaily();next();
 </script></body></html>

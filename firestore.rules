@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace the TWO placeholder strings with Firebase Authentication UIDs.
+    function isChild() { return request.auth != null && request.auth.uid == 'aZPmDML1swQMDuVmFU5baeESozu1'; }
+    function isParent() { return request.auth != null && request.auth.uid == 'zf3R5TXsxEYPs2I8tuWlrwpsfNE2'; }
+
+    match /children/child1/languages/{lang} {
+      allow get: if (isChild() || isParent()) && lang in ['de','fr'];
+      allow list: if false;
+      allow create, update: if isChild() && lang in ['de','fr']
+        && request.resource.data.keys().hasOnly(['schema','lang','progress','detail','updatedAt','clientTime'])
+        && request.resource.data.lang == lang
+        && request.resource.data.schema == 1
+        && request.resource.data.progress is map
+        && request.resource.data.detail is map;
+      allow delete: if false;
+    }
+    match /{other=**} { allow read, write: if false; }
+  }
+}
