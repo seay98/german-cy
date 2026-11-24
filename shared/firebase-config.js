@@ -7,6 +7,6 @@ export const firebaseConfig = {
   appId: "1:903646851989:web:3fe68021ed2289f9ac7c9c"
 };
 export const CHILD_DOCUMENT_ID = "child1";
-export const CLOUD_ENABLED = false; // Set true only after Auth, Firestore & rules are configured.
+export const CLOUD_ENABLED = true; // Set true only after Auth, Firestore & rules are configured.
 // UID of the child's Firebase Authentication account (not the email address).
 export const CHILD_AUTH_UID = "aZPmDML1swQMDuVmFU5baeESozu1";
